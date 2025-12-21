@@ -1,0 +1,704 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c9a227;
+  --gold-light: #e8d5a3;
+  --cream: #faf8f5;
+  --dark: #2d2d2d;
+  --text: #4a4a4a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Cormorant Garamond", serif;
+  background: linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== ENVELOPE VIEW ===== */
+.envelope-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(180deg, #f8f6f3 0%, #ebe7e1 100%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.envelope-view.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.1);
+}
+
+.envelope-container {
+  perspective: 1500px;
+  cursor: pointer;
+}
+
+.envelope {
+  position: relative;
+  width: 340px;
+  height: 580px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.envelope:hover {
+  transform: translateY(-10px);
+}
+
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #ffffff 0%, #f5f0e8 100%);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.1),
+    inset 0 0 60px rgba(201, 162, 39, 0.05);
+  overflow: hidden;
+}
+
+.envelope-back::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      45deg,
+      transparent 48%,
+      var(--gold-light) 49%,
+      var(--gold-light) 51%,
+      transparent 52%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 48%,
+      var(--gold-light) 49%,
+      var(--gold-light) 51%,
+      transparent 52%
+    );
+  background-size: 30px 30px;
+  opacity: 0.1;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(180deg, #f8f4ed 0%, #fff 100%);
+  clip-path: polygon(0 0, 50% 70%, 100% 0);
+  border-bottom: 2px solid var(--gold-light);
+  z-index: 2;
+}
+
+.envelope-flap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: 60px;
+  height: 60px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.9;
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+}
+
+.envelope-inner {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: white;
+  border-radius: 4px;
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.03);
+  gap: 8px;
+}
+
+.couple-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  border: 4px solid var(--gold-light);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.wedding-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.couple-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 42px;
+  color: var(--dark);
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.couple-names span {
+  display: block;
+}
+
+.ampersand {
+  font-size: 32px;
+  color: var(--gold);
+  margin: 5px 0;
+}
+
+.guest-name-envelope {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.wedding-date {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+.open-hint {
+  margin-top: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
+/* ===== FULL INVITATION VIEW ===== */
+.invitation-view {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease 0.3s;
+}
+
+.invitation-view.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.invitation-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.header-section {
+  background: linear-gradient(180deg, #f8f5f0 0%, #fff 100%);
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.ornament {
+  width: 120px;
+  height: auto;
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.main-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 56px;
+  color: var(--dark);
+  line-height: 1.3;
+  margin-bottom: 30px;
+}
+
+.main-names .amp {
+  display: block;
+  font-size: 40px;
+  color: var(--gold);
+  margin: 10px 0;
+}
+
+.main-date {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--text);
+}
+
+/* Hero Image */
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Greeting Section */
+.greeting-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: white;
+}
+
+.greeting-text {
+  font-size: 18px;
+  line-height: 2;
+  color: var(--text);
+  font-style: italic;
+}
+
+/* Parents Section */
+.parents-section {
+  padding: 50px 40px;
+  background: linear-gradient(180deg, #faf8f5 0%, #fff 100%);
+}
+
+.parents-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.parent-side {
+  flex: 1;
+  text-align: center;
+}
+
+.parent-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.parent-names {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--dark);
+}
+
+.parent-names strong {
+  display: block;
+  font-weight: 600;
+}
+
+/* Couple Section */
+.couple-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: white;
+}
+
+.couple-intro {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.couple-main-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 48px;
+  color: var(--dark);
+  margin-bottom: 30px;
+}
+
+.couple-photo-large {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--gold-light);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+}
+
+/* Event Details */
+.event-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #f8f5f0 0%, #fff 100%);
+}
+
+.event-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.event-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 30px;
+}
+
+.event-datetime {
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.event-datetime strong {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.event-location {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.event-location strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 5px;
+}
+
+/* Gallery Grid */
+.gallery-section {
+  padding: 20px;
+  background: white;
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.gallery-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.gallery-grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.gallery-grid-1 {
+  grid-template-columns: 1fr;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.gallery-image.horizontal {
+  grid-column: span 2;
+}
+
+/* Quote Section */
+.quote-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #faf8f5 0%, #f8f5f0 100%);
+}
+
+.quote-text {
+  font-family: "Great Vibes", cursive;
+  font-size: 32px;
+  color: var(--dark);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.quote-author {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+
+/* Footer */
+.footer-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: var(--dark);
+  color: white;
+}
+
+.footer-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.footer-date {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+
+.footer-thanks {
+  margin-top: 30px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* Decorative Elements */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 30px auto;
+}
+
+.leaf-ornament {
+  width: 80px;
+  margin: 20px auto;
+  opacity: 0.5;
+}
+
+/* Floating Back Button */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.back-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  color: var(--gold);
+}
+
+/* Music Button */
+.music-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--gold);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(201, 162, 39, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.music-button:hover {
+  transform: scale(1.1);
+}
+
+.music-button svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.music-button.playing svg {
+  animation: musicPulse 1s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Floating Hearts */
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) translateX(100px);
+  }
+}
+
+.floating-heart {
+  animation: floatUp 8s ease-in forwards;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .header-section,
+  .greeting-section,
+  .couple-section,
+  .event-section,
+  .quote-section,
+  .footer-section {
+    padding: 40px 20px;
+  }
+
+  .main-names {
+    font-size: 40px;
+  }
+
+  .parents-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .gallery-grid.grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gallery-image.horizontal {
+    grid-column: span 1;
+  }
+}

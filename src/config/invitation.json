@@ -1,0 +1,59 @@
+{
+  "couple": {
+    "groomName": "Tân Thanh",
+    "brideName": "Thảo Nguyên",
+    "groomFather": "Ông Nguyễn Văn Lâm",
+    "groomMother": "Bà Lê Thị Diễm Hằng",
+    "brideFather": "Ông Cao Minh Quyến",
+    "brideMother": "Bà Nguyễn Thị Bích Liên"
+  },
+  "event": {
+    "eventDate": "29.01.2026",
+    "eventDateFormatted": "29 Tháng 01, 2026",
+    "dayOfWeek": "Thứ Năm"
+  },
+  "greeting": {
+    "text": "Trong cuộc đời này, được gặp nhau là duyên,<br />được bên nhau là phận,<br />được yêu thương là hạnh phúc",
+    "quote": "Yêu là khi hai trái tim<br />cùng đập một nhịp",
+    "quoteAuthor": "— T & N —"
+  },
+  "events": [
+    {
+      "id": "vuquy",
+      "title": "Lễ Vu Quy",
+      "label": "Save The Date",
+      "time": "08:00",
+      "dayOfWeek": "Thứ Năm",
+      "venue": "Tư Gia Nhà Gái",
+      "address": "425 Đường Trần Hưng Đạo, Phường Bồng Sơn, Gia Lai"
+    },
+    {
+      "id": "wedding",
+      "title": "Tiệc Cưới",
+      "label": "Wedding Party",
+      "time": "09:30",
+      "dayOfWeek": "Thứ Năm",
+      "venue": "Trung Tâm Tiệc Cưới Bảy Cường",
+      "address": "Sảnh 1, Đường Nguyễn Văn Linh, Phường Bồng Sơn, Gia Lai"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "wedding-image/SDN08034.jpg",
+      "alt": "Gallery 1",
+      "layout": "col-span-1"
+    },
+    {
+      "src": "wedding-image/SDN08120.jpg",
+      "alt": "Gallery 2",
+      "layout": "col-span-1"
+    }
+  ],
+  "footer": {
+    "thanks": "Cảm ơn bạn đã đến chung vui cùng chúng tôi!",
+    "openHint": "Nhấn để mở thiệp"
+  },
+  "music": {
+    "src": "music.mp3"
+  }
+}
