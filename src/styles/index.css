@@ -841,6 +841,236 @@ body {
   letter-spacing: 1px;
 }
 
+/* ===== RSVP FORM SECTION ===== */
+.rsvp-section {
+  padding: 60px 40px;
+  text-align: center;
+  background: white;
+}
+
+.rsvp-greeting {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  color: var(--gold);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  font-style: italic;
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rsvp-input,
+.rsvp-textarea,
+.rsvp-select {
+  padding: 16px 20px;
+  border: 2px solid var(--gold-light);
+  border-radius: 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.rsvp-input:focus,
+.rsvp-textarea:focus,
+.rsvp-select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+}
+
+.rsvp-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.rsvp-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a227' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.rsvp-invited-by {
+  text-align: left;
+}
+
+.rsvp-invited-by label:first-child {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.rsvp-radio-group {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.rsvp-radio {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.rsvp-radio input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  cursor: pointer;
+  accent-color: var(--gold);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.rsvp-button {
+  padding: 16px 30px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+  margin-top: 20px;
+}
+
+.rsvp-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(201, 162, 39, 0.4);
+}
+
+.rsvp-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.rsvp-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.rsvp-button-gift {
+  padding: 16px 30px;
+  background: linear-gradient(135deg, #e8a87c 0%, #d99d6b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(232, 168, 124, 0.3);
+  margin-top: 12px;
+}
+
+.rsvp-button-gift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(232, 168, 124, 0.4);
+}
+
+.rsvp-button-gift:active {
+  transform: translateY(0);
+}
+
+.rsvp-message {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.rsvp-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.rsvp-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* RSVP Name Display for Query Param */
+.rsvp-name-display {
+  padding: 20px;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f3f0 100%);
+  border-radius: 8px;
+  border-left: 4px solid var(--gold);
+  margin-bottom: 20px;
+}
+
+.rsvp-name-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.rsvp-name-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 24px;
+  color: var(--dark);
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .rsvp-section {
+    padding: 40px 20px;
+  }
+
+  .rsvp-greeting {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  .rsvp-form {
+    max-width: 100%;
+  }
+
+  .rsvp-radio-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .rsvp-button {
+    font-size: 13px;
+    padding: 14px 20px;
+  }
+}
 @media (max-width: 768px) {
   .countdown-timer {
     grid-template-columns: repeat(2, 1fr);
@@ -897,5 +1127,222 @@ body {
   .countdown-label {
     font-size: 12px;
     letter-spacing: 1px;
+  }
+}
+/* ===== GIFT MODAL ===== */
+.gift-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  backdrop-filter: blur(2px);
+}
+
+.gift-modal-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #fff5f7 0%, #fffbf0 100%);
+  border-radius: 20px 20px 0 0;
+  z-index: 2000;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(201, 162, 39, 0.1);
+}
+
+.gift-modal-header {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.gift-modal-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.gift-modal-close:hover {
+  color: var(--gold);
+}
+
+.gift-modal-title {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: var(--dark);
+  margin: 0;
+  font-weight: 600;
+}
+
+.gift-modal-content {
+  padding: 30px 20px;
+}
+
+.gift-modal-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.gift-section {
+  background: white;
+  border-radius: 16px;
+  padding: 30px 25px;
+  margin-bottom: 25px;
+  border: 2px solid var(--gold-light);
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.1);
+}
+
+.gift-section-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+}
+
+.gift-qr-container {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px 0;
+}
+
+.gift-bank-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.gift-qr-code {
+  width: 240px;
+  height: 240px;
+  border: 3px solid var(--gold);
+  border-radius: 12px;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 8px 25px rgba(201, 162, 39, 0.2);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.gift-info {
+  background: rgba(201, 162, 39, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 15px;
+  border: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.gift-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+}
+
+.gift-info-row:last-child {
+  border-bottom: none;
+}
+
+.gift-info-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gift-info-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: var(--dark);
+  font-weight: 600;
+  text-align: right;
+  text-align: right;
+  word-break: break-word;
+}
+
+.gift-modal-done {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+}
+
+.gift-modal-done:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(201, 162, 39, 0.4);
+}
+
+.gift-modal-done:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .gift-modal-container {
+    border-radius: 24px 24px 0 0;
+  }
+
+  .gift-modal-title {
+    font-size: 24px;
+  }
+
+  .gift-modal-text {
+    font-size: 15px;
+  }
+
+  .gift-section {
+    padding: 20px;
+  }
+
+  .gift-qr-code {
+    width: 160px;
+    height: 160px;
+  }
+
+  .gift-info-label {
+    font-size: 12px;
+  }
+
+  .gift-info-value {
+    font-size: 14px;
   }
 }

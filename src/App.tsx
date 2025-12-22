@@ -13,6 +13,7 @@ import Quote from "./components/Quote";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import Loading from "./components/Loading";
+import RSVPForm from "./components/RSVPForm";
 import config from "./config/invitation.json";
 import { host } from "./config/constant";
 import "./styles/index.css";
@@ -26,6 +27,10 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const audioRef = React.useRef<HTMLAudioElement>(null);
+
+  // Get name from query parameter
+  const queryParams = new URLSearchParams(window.location.search);
+  const nameFromQuery = queryParams.get("name") || "";
 
   // Image & Audio URLs to preload
   const imagesToPreload = [
@@ -294,6 +299,25 @@ const App: React.FC = () => {
             <Quote
               text={config.greeting.quote}
               author={config.greeting.quoteAuthor}
+            />
+          </motion.div>
+
+          <motion.div
+            className="section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <RSVPForm
+              telegramBotToken={import.meta.env.VITE_TELEGRAM_BOT_TOKEN || ""}
+              telegramChatId={import.meta.env.VITE_TELEGRAM_CHAT_ID || ""}
+              giftQrCode={host + config.gift?.qrCode || ""}
+              bankName={config.gift?.bankName || ""}
+              accountName={config.gift?.accountName || ""}
+              accountNumber={config.gift?.accountNumber || ""}
+              bankAddress={config.gift?.bankAddress}
+              initialName={nameFromQuery}
             />
           </motion.div>
 

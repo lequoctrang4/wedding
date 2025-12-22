@@ -43,5 +43,15 @@
   },
   "music": {
     "src": "music.mp3"
+  },
+  "telegram": {
+    "botToken": "%VITE_TELEGRAM_BOT_TOKEN%",
+    "chatId": "%VITE_TELEGRAM_CHAT_ID%"
+  },
+  "gift": {
+    "qrCode": "QR.png",
+    "bankName": "Nam A Bank",
+    "accountName": "CAO THI THAO NGUYEN",
+    "accountNumber": "009996999"
   }
 }
