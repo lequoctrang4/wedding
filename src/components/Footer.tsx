@@ -1,40 +1,42 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 import config from "../config/invitation.json";
+import { animationVariants } from "../utils/animations";
 
 const Footer: React.FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
-      { threshold: 0.1 }
-    );
+    },
+  };
 
-    if (ref.current) observer.observe(ref.current);
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
+  const itemVariants = animationVariants.slideInBottom;
 
   return (
-    <div
-      ref={ref}
-      className={`footer-section ${isVisible ? "animate-fade-in" : ""}`}
+    <motion.div
+      className="footer-section"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="footer-names">
+      <motion.div className="footer-names" variants={itemVariants}>
         {config.couple.brideName} & {config.couple.groomName}
-      </div>
+      </motion.div>
 
-      <div className="footer-date">{config.event.eventDate}</div>
+      <motion.div className="footer-date" variants={itemVariants}>
+        {config.event.eventDate}
+      </motion.div>
 
-      <div className="footer-thanks">{config.footer.thanks}</div>
-    </div>
+      <motion.div className="footer-thanks" variants={itemVariants}>
+        {config.footer.thanks}
+      </motion.div>
+    </motion.div>
   );
 };
 

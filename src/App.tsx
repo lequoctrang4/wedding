@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import config from "./config/invitation.json";
 import "./styles/index.css";
+import FloatingHeart from "./components/FloatingHeart";
 
 const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,9 +73,9 @@ const App: React.FC = () => {
         <Envelope onOpen={openInvitation} />
       </div>
       {/* Floating Hearts */}
-      {/* {hearts.map((heart) => (
+      {hearts.map((heart) => (
         <FloatingHeart key={heart} />
-      ))} */}
+      ))}
       {/* Invitation View */}
       <div className={`invitation-view ${isOpen ? "visible" : ""}`}>
         <button

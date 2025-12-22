@@ -1,10 +1,31 @@
 import React from "react";
+import { motion } from "framer-motion";
 import config from "../config/invitation.json";
+import { animationVariants } from "../utils/animations";
 
 const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = animationVariants.slideInTop;
+
   return (
-    <div className="header-section animate-fade-in">
-      <div className="ornament">
+    <motion.div
+      className="header-section"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <motion.div className="ornament" variants={itemVariants}>
         <svg viewBox="0 0 100 50">
           <path
             d="M50 25 C30 10, 10 25, 10 25 C10 25, 30 40, 50 25 C70 40, 90 25, 90 25 C90 25, 70 10, 50 25"
@@ -13,18 +34,22 @@ const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             strokeWidth="1"
           />
         </svg>
-      </div>
+      </motion.div>
 
-      <div className="header-title">Wedding Invitation</div>
+      <motion.div className="header-title" variants={itemVariants}>
+        Wedding Invitation
+      </motion.div>
 
-      <div className="main-names">
+      <motion.div className="main-names" variants={itemVariants}>
         <span>{config.couple.brideName}</span>
         <span className="amp">&</span>
         <span>{config.couple.groomName}</span>
-      </div>
+      </motion.div>
 
-      <div className="main-date">{config.event.eventDate}</div>
-    </div>
+      <motion.div className="main-date" variants={itemVariants}>
+        {config.event.eventDate}
+      </motion.div>
+    </motion.div>
   );
 };
 

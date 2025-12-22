@@ -1,4 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import { animationVariants } from "../utils/animations";
 
 interface GalleryImage {
   src: string;
@@ -12,44 +14,49 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ images, cols = 2 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
   const gridClass = `gallery-grid-${cols}`;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  // Rotate between different animation styles for visual variety
+  const imageAnimations = [
+    animationVariants.popIn,
+    animationVariants.slideInLeft,
+    animationVariants.slideInRight,
+    animationVariants.rotateIn,
+    animationVariants.bounceUp,
+    animationVariants.slideInTop,
+  ];
+
   return (
-    <div
-      ref={ref}
-      className={`gallery-section ${isVisible ? "animate-fade-in" : ""}`}
+    <motion.div
+      className="gallery-section"
+      initial="hidden"
+      whileInView="visible"
+      variants={containerVariants}
+      viewport={{ once: true, amount: 0.1 }}
     >
-      <div className={`gallery-grid ${gridClass}`}>
+      <motion.div className={`gallery-grid ${gridClass}`}>
         {images.map((img, idx) => (
-          <img
+          <motion.img
             key={idx}
             src={img.src}
             alt={img.alt}
             className="gallery-image"
+            variants={imageAnimations[idx % imageAnimations.length]}
           />
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
