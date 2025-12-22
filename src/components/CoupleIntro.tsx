@@ -16,7 +16,9 @@ const CoupleIntro: React.FC<CoupleIntroProps> = ({
       <div className="couple-intro animate-scale-in">Cô Dâu & Chú Rể</div>
 
       <div className="couple-main-names animate-slide-up">
-        {brideName} & {groomName}
+        <div>{brideName}</div>
+        <div>&</div>
+        <div>{groomName}</div>
       </div>
 
       {photo && (

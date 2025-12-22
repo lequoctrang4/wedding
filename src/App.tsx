@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Envelope from "./components/Envelope";
 import Header from "./components/Header";
 import HeroImage from "./components/HeroImage";
 import Greeting from "./components/Greeting";
 import Parents from "./components/Parents";
+import Countdown from "./components/Countdown";
 import Gallery from "./components/Gallery";
 import CoupleIntro from "./components/CoupleIntro";
 import EventDetails from "./components/EventDetails";
@@ -91,29 +93,76 @@ const App: React.FC = () => {
         </button>
 
         <div className="invitation-container">
-          <div className="section header-section">
+          <motion.div
+            className="section header-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <Header onClose={closeInvitation} />
-          </div>
+          </motion.div>
 
-          <HeroImage src="wedding-image/SDN08005.jpg" alt="Wedding Hero" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <HeroImage src="wedding-image/SDN09286.jpg" alt="Wedding Hero" />
+          </motion.div>
 
-          <div className="section greeting-section">
+          <motion.div
+            className="section greeting-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <Greeting />
-          </div>
+          </motion.div>
 
-          <div className="section parents-section">
+          <motion.div
+            className="section countdown-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Countdown />
+          </motion.div>
+
+          <motion.div
+            className="section parents-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <Parents />
-          </div>
+          </motion.div>
 
-          <div className="section couple-section">
+          <motion.div
+            className="section couple-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <CoupleIntro
               groomName={config.couple.groomName}
               brideName={config.couple.brideName}
-              photo="wedding-image/SDN08135.jpg"
+              photo="wedding-image/SDN0003.jpg"
             />
-          </div>
+          </motion.div>
 
-          <div className="section event-section">
+          <motion.div
+            className="section event-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <EventDetails
               title={config.events[0].title}
               label={config.events[0].label}
@@ -123,17 +172,30 @@ const App: React.FC = () => {
               address={config.events[0].address}
               eventDateFormatted={config.event.eventDateFormatted}
             />
-          </div>
+          </motion.div>
 
-          <Gallery
-            images={[
-              { src: "wedding-image/SDN08034.jpg", alt: "Gallery 1" },
-              { src: "wedding-image/SDN08120.jpg", alt: "Gallery 2" },
-            ]}
-            cols={2}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Gallery
+              images={[
+                { src: "wedding-image/SDN09024.jpg", alt: "Gallery 1" },
+                { src: "wedding-image/SDN09289.jpg", alt: "Gallery 2" },
+              ]}
+              cols={2}
+            />
+          </motion.div>
 
-          <div className="section event-section">
+          <motion.div
+            className="section event-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <EventDetails
               title={config.events[1].title}
               label={config.events[1].label}
@@ -143,27 +205,60 @@ const App: React.FC = () => {
               address={config.events[1].address}
               eventDateFormatted={config.event.eventDateFormatted}
             />
-          </div>
+          </motion.div>
 
-          <Gallery
-            images={[
-              { src: "wedding-image/SDN08141.jpg", alt: "Gallery 3" },
-              { src: "wedding-image/SDN08203.jpg", alt: "Gallery 4" },
-              { src: "wedding-image/SDN08244.jpg", alt: "Gallery 5" },
-            ]}
-            cols={3}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Gallery
+              images={[
+                { src: "wedding-image/SDN08141.jpg", alt: "Gallery 3" },
+                { src: "wedding-image/SDN08203.jpg", alt: "Gallery 4" },
+                { src: "wedding-image/SDN08244.jpg", alt: "Gallery 5" },
+              ]}
+              cols={3}
+            />
+          </motion.div>
 
-          <div className="section quote-section">
+          <motion.div
+            className="dark-image-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <img
+              src="wedding-image/SDN08849-horizental.jpg"
+              alt="Couple"
+              className="dark-image-full"
+            />
+          </motion.div>
+
+          <motion.div
+            className="section quote-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <Quote
               text={config.greeting.quote}
               author={config.greeting.quoteAuthor}
             />
-          </div>
+          </motion.div>
 
-          <div className="section footer-section">
+          <motion.div
+            className="section footer-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <Footer />
-          </div>
+          </motion.div>
         </div>
       </div>
       <MusicPlayer
