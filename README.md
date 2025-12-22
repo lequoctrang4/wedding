@@ -1,3 +1,59 @@
+## Deploy to Cloudflare Pages
+
+This project is a static React + Vite site. The production build outputs to `dist/`. You can deploy it to Cloudflare Pages via the dashboard (UI) or using the CLI.
+
+### Option A — Cloudflare Pages (Dashboard)
+
+- Push this project to a GitHub repository.
+- In Cloudflare Dashboard: Pages → Create a project → Connect to GitHub → select your repo.
+- Build settings:
+  - Framework preset: Vite (or “None” if not available)
+  - Build command: `npm run build`
+  - Build output directory: `dist`
+  - Node version: 18 or 20 (Vite 5 requires Node ≥ 18). You can set this in Pages → Settings → Build → Node version. - **⚠️ Important:** Leave **Deploy command** and **Non-production branch deploy command** blank (or remove `npm run deploy` / `npx wrangler versions upload` if they're set). Cloudflare Pages doesn't need a separate deploy command for static sites.- Click Deploy. Cloudflare will build and host the site on a `*.pages.dev` domain. You can later add a custom domain.
+
+### Option B — Cloudflare CLI (Wrangler)
+
+If you prefer the CLI:
+
+1. Install Wrangler and log in
+
+```
+npm install -D wrangler
+npx wrangler login
+```
+
+2. Build locally (already configured)
+
+```
+npm run build
+```
+
+3. Create a Pages project and deploy the `dist/` folder
+
+```
+npx wrangler pages project create wedding-invitation
+npx wrangler pages deploy dist --project-name wedding-invitation
+```
+
+Cloudflare will return a preview URL on each deploy. For production, you can deploy from the `main` branch or set up environments.
+
+### Local preview
+
+To verify the production build locally:
+
+```
+npm run build
+npm run preview
+```
+
+Then open the URL printed in the terminal (default http://localhost:4173).
+
+### Notes
+
+- Ensure large assets (images, audio) are optimized to keep deploy size small. The `dist/` folder currently includes `wedding-image/` and an `music.mp3` file; consider compressing if needed.
+- No server-side logic is required; Cloudflare Pages serves the static bundle from `dist/`.
+
 # Wedding Invitation React App
 
 Beautiful, interactive wedding invitation built with React, TypeScript, and Tailwind CSS.
