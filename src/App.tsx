@@ -306,7 +306,7 @@ const App: React.FC = () => {
       </div>
       <MusicPlayer
         ref={audioRef}
-        src={config.music.src}
+        src={host + config.music.src}
         isOpen={isOpen}
         isPlaying={isPlaying}
         onTogglePlay={togglePlayMusic}
