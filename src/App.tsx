@@ -12,15 +12,61 @@ import EventDetails from "./components/EventDetails";
 import Quote from "./components/Quote";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
+import Loading from "./components/Loading";
 import config from "./config/invitation.json";
+import { host } from "./config/constant";
 import "./styles/index.css";
 import FloatingHeart from "./components/FloatingHeart";
+import { preloadImages } from "./utils/preloader";
 
 const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hearts, setHearts] = useState<number[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadProgress, setLoadProgress] = useState(0);
   const audioRef = React.useRef<HTMLAudioElement>(null);
+
+  // Image & Audio URLs to preload
+  const imagesToPreload = [
+    `${host}wedding-image/SDN09286.png`,
+    `${host}wedding-image/SDN0003.png`,
+    `${host}wedding-image/SDN08433.png`,
+    `${host}wedding-image/SDN08466.png`,
+    `${host}wedding-image/SDN09299.png`,
+    `${host}wedding-image/SDN08882.png`,
+    `${host}wedding-image/SDN09072.png`,
+    `${host}music.mp3`, // Add music file to preload
+  ];
+
+  // Preload images on mount
+  useEffect(() => {
+    preloadImages(imagesToPreload, (progress) => {
+      setLoadProgress(progress);
+    })
+      .then(() => {
+        // Add a small delay for better UX (optional)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      })
+      .catch(() => {
+        // Even if preloading fails, continue after timeout
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      });
+  }, []);
+
+  const openInvitation = () => {
+    setIsOpen(true);
+    window.scrollTo(0, 0);
+  };
+
+  const closeInvitation = () => {
+    setIsOpen(false);
+    setHearts([]);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -33,21 +79,11 @@ const App: React.FC = () => {
           }
           return newHearts;
         });
-      }, 800); // Increased from 300ms to 800ms
+      }, 800);
 
       return () => clearInterval(heartInterval);
     }
   }, [isOpen]);
-
-  const openInvitation = () => {
-    setIsOpen(true);
-    window.scrollTo(0, 0);
-  };
-
-  const closeInvitation = () => {
-    setIsOpen(false);
-    setHearts([]);
-  };
 
   const togglePlayMusic = () => {
     if (audioRef.current) {
@@ -65,6 +101,9 @@ const App: React.FC = () => {
 
   return (
     <div>
+      {/* Loading Screen */}
+      <Loading isLoading={isLoading} progress={loadProgress} />
+
       {/* Envelope View */}
       <div
         className={`envelope-view ${isOpen ? "hidden" : ""}`}
@@ -110,7 +149,10 @@ const App: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <HeroImage src="wedding-image/SDN09286.png" alt="Wedding Hero" />
+            <HeroImage
+              src={`${host}wedding-image/SDN09286.png`}
+              alt="Wedding Hero"
+            />
           </motion.div>
 
           <motion.div
@@ -153,7 +195,7 @@ const App: React.FC = () => {
             <CoupleIntro
               groomName={config.couple.groomName}
               brideName={config.couple.brideName}
-              photo="wedding-image/SDN0003.png"
+              photo={`${host}wedding-image/SDN0003.png`}
             />
           </motion.div>
 
@@ -183,8 +225,8 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: "wedding-image/SDN08433.png", alt: "Gallery 1" },
-                { src: "wedding-image/SDN08466.png", alt: "Gallery 2" },
+                { src: `${host}wedding-image/SDN08433.png`, alt: "Gallery 1" },
+                { src: `${host}wedding-image/SDN08466.png`, alt: "Gallery 2" },
               ]}
               cols={2}
             />
@@ -216,9 +258,9 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: "wedding-image/SDN09299.png", alt: "Gallery 3" },
-                { src: "wedding-image/SDN08882.png", alt: "Gallery 4" },
-                { src: "wedding-image/SDN09072.png", alt: "Gallery 5" },
+                { src: `${host}wedding-image/SDN09299.png`, alt: "Gallery 3" },
+                { src: `${host}wedding-image/SDN08882.png`, alt: "Gallery 4" },
+                { src: `${host}wedding-image/SDN09072.png`, alt: "Gallery 5" },
               ]}
               cols={3}
             />
