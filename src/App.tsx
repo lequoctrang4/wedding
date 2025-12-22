@@ -268,15 +268,19 @@ const App: React.FC = () => {
 
           <motion.div
             className="dark-image-section"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <img
-              src="wedding-image/SDN08372.png"
+            <motion.img
+              src={`${host}wedding-image/SDN08372.png`}
               alt="Couple"
               className="dark-image-full"
+              initial={{ scale: 0.95, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
             />
           </motion.div>
 
