@@ -37,20 +37,8 @@
       "address": "Sảnh 1, Đường Nguyễn Văn Linh, Phường Bồng Sơn, Gia Lai"
     }
   ],
-  "gallery": [
-    {
-      "src": "wedding-image/SDN08034.jpg",
-      "alt": "Gallery 1",
-      "layout": "col-span-1"
-    },
-    {
-      "src": "wedding-image/SDN08120.jpg",
-      "alt": "Gallery 2",
-      "layout": "col-span-1"
-    }
-  ],
   "footer": {
-    "thanks": "Cảm ơn bạn đã đến chung vui cùng chúng tôi!",
+    "thanks": "Sự hiện diện của bạn là niềm vinh hạnh lớn lao đối với chúng tôi",
     "openHint": "Nhấn để mở thiệp"
   },
   "music": {

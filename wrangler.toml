@@ -1,0 +1,28 @@
+name = "thanh-nguyen-wedding"
+type = "javascript"
+main = "dist/index.html"
+
+# Cloudflare Pages configuration
+pages_build_configuration = {}
+
+[build]
+command = "npm run build"
+cwd = "./"
+
+[build.upload]
+format = "service-worker"
+
+# Environment configuration
+[env.production]
+routes = [
+  { pattern = "*.pages.dev", zone_name = "" }
+]
+
+[env.preview]
+routes = [
+  { pattern = "*.pages.dev", zone_name = "" }
+]
+
+# Build settings for Cloudflare Pages
+[site]
+bucket = "./dist"

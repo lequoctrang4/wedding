@@ -14,29 +14,35 @@ This project is a static React + Vite site. The production build outputs to `dis
 
 ### Option B — Cloudflare CLI (Wrangler)
 
-If you prefer the CLI:
+If you prefer the CLI, this project includes a `wrangler.toml` configuration file.
 
 1. Install Wrangler and log in
 
-```
+```bash
 npm install -D wrangler
 npx wrangler login
 ```
 
-2. Build locally (already configured)
+2. Deploy the `dist/` folder using Wrangler
 
-```
+```bash
 npm run build
+npx wrangler pages deploy dist
 ```
 
-3. Create a Pages project and deploy the `dist/` folder
+Or use the configuration-based approach:
 
-```
-npx wrangler pages project create wedding-invitation
-npx wrangler pages deploy dist --project-name wedding-invitation
+```bash
+npx wrangler pages deploy --project-name wedding-invitation
 ```
 
 Cloudflare will return a preview URL on each deploy. For production, you can deploy from the `main` branch or set up environments.
+
+The `wrangler.toml` file pre-configures:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Project name and environment settings
 
 ### Local preview
 

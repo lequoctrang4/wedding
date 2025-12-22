@@ -109,7 +109,7 @@ const App: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <HeroImage src="wedding-image/SDN09286.jpg" alt="Wedding Hero" />
+            <HeroImage src="wedding-image/SDN09286.png" alt="Wedding Hero" />
           </motion.div>
 
           <motion.div
@@ -152,7 +152,7 @@ const App: React.FC = () => {
             <CoupleIntro
               groomName={config.couple.groomName}
               brideName={config.couple.brideName}
-              photo="wedding-image/SDN0003.jpg"
+              photo="wedding-image/SDN0003.png"
             />
           </motion.div>
 
@@ -182,8 +182,8 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: "wedding-image/SDN09024.jpg", alt: "Gallery 1" },
-                { src: "wedding-image/SDN09289.jpg", alt: "Gallery 2" },
+                { src: "wedding-image/SDN08433.png", alt: "Gallery 1" },
+                { src: "wedding-image/SDN08466.png", alt: "Gallery 2" },
               ]}
               cols={2}
             />
@@ -215,9 +215,9 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: "wedding-image/SDN08141.jpg", alt: "Gallery 3" },
-                { src: "wedding-image/SDN08203.jpg", alt: "Gallery 4" },
-                { src: "wedding-image/SDN08244.jpg", alt: "Gallery 5" },
+                { src: "wedding-image/SDN09299.png", alt: "Gallery 3" },
+                { src: "wedding-image/SDN08882.png", alt: "Gallery 4" },
+                { src: "wedding-image/SDN09072.png", alt: "Gallery 5" },
               ]}
               cols={3}
             />
@@ -231,7 +231,7 @@ const App: React.FC = () => {
             viewport={{ once: true }}
           >
             <img
-              src="wedding-image/SDN08849-horizental.jpg"
+              src="wedding-image/SDN08372.png"
               alt="Couple"
               className="dark-image-full"
             />
