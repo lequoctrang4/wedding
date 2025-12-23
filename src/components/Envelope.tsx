@@ -35,16 +35,14 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
               >
                 Wedding Invitation
               </motion.div>
-              {guestName && (
-                <motion.div
-                  className="guest-name-envelope"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                >
-                  Kính mời: {guestName} ❤️❤️❤️
-                </motion.div>
-              )}
+              <motion.div
+                className="guest-name-envelope"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                ❤️. Kính mời: {guestName || "Bạn"} ❤️
+              </motion.div>
               <motion.div
                 className="couple-names"
                 initial={{ opacity: 0, y: 10 }}

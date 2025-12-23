@@ -110,7 +110,17 @@ const RSVPForm: React.FC<RSVPFormProps> = ({
 
 ${data.name ? `👤 Họ và Tên: ${data.name}` : ""}
 ${data.message ? `💬 Lời nhắn: ${data.message}` : ""}
-${data.attendance ? `✅ Xác nhận: ${data.attendance}` : ""}
+${
+  data.attendance
+    ? `${
+        data.attendance === "Không thể tham dự"
+          ? "❌"
+          : data.attendance === "Có thể tham dự"
+          ? "✅"
+          : "❓"
+      } Xác nhận: ${data.attendance}`
+    : ""
+}
 ${data.guestCount ? `👥 Số người: ${data.guestCount}` : ""}
 ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
     `.trim();
@@ -236,11 +246,23 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
 
             {/* Show rest of form if name is provided (either from input or query param) */}
             {(watch("name")?.trim() || initialName) && (
-              <>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                style={{
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1.5rem",
+                }}
+              >
                 {initialName && (
                   <motion.div
                     className="rsvp-name-display"
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
                     <p className="rsvp-name-label">Xác nhận thông tin:</p>
                     <p className="rsvp-name-value">{initialName} ❤️</p>
@@ -252,7 +274,9 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                   {...register("message")}
                   className="rsvp-textarea"
                   rows={4}
-                  variants={itemVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                   style={{ width: "100%" }}
                 />
 
@@ -261,7 +285,9 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                     required: "Vui lòng chọn có thể tham dự không",
                   })}
                   className={`rsvp-select ${errors.attendance ? "error" : ""}`}
-                  variants={itemVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
                   style={{ width: "100%" }}
                 >
                   <option value="">Bạn sẽ đến chứ?</option>
@@ -272,7 +298,12 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                   <option value="Chưa chắc chắn">❓ Chưa chắc chắn</option>
                 </motion.select>
                 {errors.attendance && (
-                  <motion.p className="rsvp-error" variants={itemVariants}>
+                  <motion.p
+                    className="rsvp-error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     {errors.attendance.message}
                   </motion.p>
                 )}
@@ -289,7 +320,6 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                     className={`rsvp-select ${
                       errors.guestCount ? "error" : ""
                     }`}
-                    variants={itemVariants}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -307,7 +337,12 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
 
                 {watchedAttendance === "Có thể tham dự" &&
                   errors.guestCount && (
-                    <motion.p className="rsvp-error" variants={itemVariants}>
+                    <motion.p
+                      className="rsvp-error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       {errors.guestCount.message}
                     </motion.p>
                   )}
@@ -319,7 +354,6 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                       className={`rsvp-invited-by ${
                         errors.invitedBy ? "error" : ""
                       }`}
-                      variants={itemVariants}
                       style={{ width: "100%" }}
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -379,14 +413,16 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
                   type="submit"
                   disabled={isSubmitting}
                   className="rsvp-button"
-                  variants={itemVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{ width: "100%" }}
                 >
                   {isSubmitting ? "Đang gửi..." : "GỬI LỜI NHẬN VÀ XÁC NHẬN"}
                 </motion.button>
-              </>
+              </motion.div>
             )}
           </form>
         )}
