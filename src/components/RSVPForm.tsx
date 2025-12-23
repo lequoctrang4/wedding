@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { animationVariants } from "../utils/animations";
+import { motion, Variants } from "framer-motion";
+import { useForm } from "react-hook-form";
 import GiftModal from "./GiftModal";
 
 interface RSVPFormProps {
@@ -14,6 +14,14 @@ interface RSVPFormProps {
   initialName?: string;
 }
 
+interface FormData {
+  name: string;
+  message: string;
+  attendance: string;
+  guestCount: string;
+  invitedBy: string;
+}
+
 const RSVPForm: React.FC<RSVPFormProps> = ({
   telegramBotToken,
   telegramChatId,
@@ -24,14 +32,6 @@ const RSVPForm: React.FC<RSVPFormProps> = ({
   bankAddress,
   initialName = "",
 }) => {
-  const [formData, setFormData] = useState({
-    name: initialName,
-    message: "",
-    attendance: "",
-    guestCount: "",
-    invitedBy: "",
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -39,31 +39,67 @@ const RSVPForm: React.FC<RSVPFormProps> = ({
   const [submitMessage, setSubmitMessage] = useState("");
   const [showGiftModal, setShowGiftModal] = useState(false);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // React Hook Form with built-in validation
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    formState: { errors },
+    trigger,
+  } = useForm<FormData>({
+    mode: "onSubmit", // Validate on submit
+    defaultValues: {
+      name: initialName,
+      message: "",
+      attendance: "",
+      guestCount: "",
+      invitedBy: "",
+    },
+  });
 
-  // Check if all required fields are filled
-  const isFormValid = () => {
-    return (
-      formData.name.trim() &&
-      formData.attendance.trim() &&
-      formData.guestCount.trim() &&
-      formData.invitedBy.trim()
-    );
-  };
+  // Watch attendance to show/hide guest count
+  const watchedAttendance = watch("attendance");
 
-  const sendToTelegram = async () => {
-    if (!formData.name.trim()) {
-      setSubmitStatus("error");
-      setSubmitMessage("Vui lòng nhập họ và tên");
-      setTimeout(() => setSubmitStatus("idle"), 3000);
-      return;
+  // Clear invitedBy when selecting "Không thể tham dự"
+  React.useEffect(() => {
+    if (watchedAttendance === "Không thể tham dự") {
+      setValue("invitedBy", "");
+      // Clear validation error for invitedBy when not needed
+      trigger("invitedBy");
+    }
+  }, [watchedAttendance, setValue, trigger]);
+
+  // Debug log
+  console.log("Current attendance value:", watchedAttendance);
+  console.log("Form errors:", errors);
+  console.log("InvitedBy value:", watch("invitedBy"));
+  console.log("InvitedBy error:", errors.invitedBy);
+
+  const sendToTelegram = async (data: FormData) => {
+    // Custom validation for conditional fields
+    let hasError = false;
+
+    // Check if invitedBy is required and missing
+    if (
+      watchedAttendance !== "Không thể tham dự" &&
+      watchedAttendance &&
+      !data.invitedBy
+    ) {
+      // Manually trigger validation error
+      trigger("invitedBy");
+      hasError = true;
+    }
+
+    // Check if guestCount is required and missing
+    if (watchedAttendance === "Có thể tham dự" && !data.guestCount) {
+      trigger("guestCount");
+      hasError = true;
+    }
+
+    if (hasError) {
+      return; // Stop submission if validation fails
     }
 
     setIsSubmitting(true);
@@ -72,11 +108,11 @@ const RSVPForm: React.FC<RSVPFormProps> = ({
     const message = `
 📝 **XÁC NHẬN DỰ TIỆC CƯỚI**
 
-${formData.name ? `👤 Họ và Tên: ${formData.name}` : ""}
-${formData.message ? `💬 Lời nhắn: ${formData.message}` : ""}
-${formData.attendance ? `✅ Có thể tham dự: ${formData.attendance}` : ""}
-${formData.guestCount ? `👥 Số người: ${formData.guestCount}` : ""}
-${formData.invitedBy ? `🤝 Người mời: ${formData.invitedBy}` : ""}
+${data.name ? `👤 Họ và Tên: ${data.name}` : ""}
+${data.message ? `💬 Lời nhắn: ${data.message}` : ""}
+${data.attendance ? `✅ Xác nhận: ${data.attendance}` : ""}
+${data.guestCount ? `👥 Số người: ${data.guestCount}` : ""}
+${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
     `.trim();
 
     try {
@@ -96,16 +132,15 @@ ${formData.invitedBy ? `🤝 Người mời: ${formData.invitedBy}` : ""}
       if (response.ok) {
         setSubmitStatus("success");
         setSubmitMessage("Gửi thành công! Cảm ơn bạn đã xác nhận");
-        // Reset form immediately
-        setFormData({
+        // Reset form
+        reset({
           name: "",
           message: "",
           attendance: "",
           guestCount: "",
           invitedBy: "",
         });
-        setIsSubmitting(false);
-        setTimeout(() => setSubmitStatus("idle"), 3000);
+        // Don't reset status to idle - keep success state permanently
       } else {
         setSubmitStatus("error");
         setSubmitMessage("Gửi thất bại. Vui lòng thử lại");
@@ -120,7 +155,7 @@ ${formData.invitedBy ? `🤝 Người mời: ${formData.invitedBy}` : ""}
     }
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -131,7 +166,17 @@ ${formData.invitedBy ? `🤝 Người mời: ${formData.invitedBy}` : ""}
     },
   };
 
-  const itemVariants = animationVariants.slideInBottom;
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
     <motion.div
@@ -141,141 +186,248 @@ ${formData.invitedBy ? `🤝 Người mời: ${formData.invitedBy}` : ""}
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      {!initialName && (
-        <motion.p className="rsvp-greeting" variants={itemVariants}>
-          Mỗi lời hỏi đáp của bạn chính là một niềm vui lớn đối với chúng tôi.
-          Hãy nhận xác nhận để cùng chung vui nhé!
-        </motion.p>
-      )}
+      <motion.p className="rsvp-greeting" variants={itemVariants}>
+        Sự hiện diện của bạn là niềm vui lớn đối với gia đình. Rất hân hạnh được
+        đón tiếp. Xin vui lòng xác nhận tham dự để tụi mình chuẩn bị chu đáo
+        nhất nhé!
+      </motion.p>
 
-      <motion.div className="rsvp-form" variants={containerVariants}>
-        {/* Name Field - Always Required (or auto-filled from query) */}
-        {!initialName && (
-          <motion.input
-            type="text"
-            name="name"
-            placeholder="Họ và Tên"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="rsvp-input"
-            variants={itemVariants}
-          />
+      <motion.div
+        className="rsvp-form"
+        variants={containerVariants}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          gap: "1rem",
+        }}
+      >
+        {/* Show form only when not successfully submitted */}
+        {submitStatus !== "success" && (
+          <form
+            onSubmit={handleSubmit(sendToTelegram)}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              gap: "1rem",
+            }}
+          >
+            {/* Name Field - Always Required (or auto-filled from query) */}
+            {!initialName && (
+              <>
+                <motion.input
+                  type="text"
+                  placeholder="Họ và Tên"
+                  {...register("name", {
+                    required: "Vui lòng nhập họ và tên",
+                  })}
+                  className={`rsvp-input ${errors.name ? "error" : ""}`}
+                  variants={itemVariants}
+                  style={{ width: "100%" }}
+                />
+                {errors.name && (
+                  <motion.p className="rsvp-error" variants={itemVariants}>
+                    {errors.name.message}
+                  </motion.p>
+                )}
+              </>
+            )}
+
+            {/* Show rest of form if name is provided (either from input or query param) */}
+            {(watch("name")?.trim() || initialName) && (
+              <>
+                {initialName && (
+                  <motion.div
+                    className="rsvp-name-display"
+                    variants={itemVariants}
+                  >
+                    <p className="rsvp-name-label">Xác nhận thông tin:</p>
+                    <p className="rsvp-name-value">{initialName} ❤️</p>
+                  </motion.div>
+                )}
+
+                <motion.textarea
+                  placeholder="Gửi lời nhận đến cô dâu và chú rể"
+                  {...register("message")}
+                  className="rsvp-textarea"
+                  rows={4}
+                  variants={itemVariants}
+                  style={{ width: "100%" }}
+                />
+
+                <motion.select
+                  {...register("attendance", {
+                    required: "Vui lòng chọn có thể tham dự không",
+                  })}
+                  className={`rsvp-select ${errors.attendance ? "error" : ""}`}
+                  variants={itemVariants}
+                  style={{ width: "100%" }}
+                >
+                  <option value="">Bạn sẽ đến chứ?</option>
+                  <option value="Có thể tham dự">✅ Có thể tham dự</option>
+                  <option value="Không thể tham dự">
+                    ❌ Không thể tham dự
+                  </option>
+                  <option value="Chưa chắc chắn">❓ Chưa chắc chắn</option>
+                </motion.select>
+                {errors.attendance && (
+                  <motion.p className="rsvp-error" variants={itemVariants}>
+                    {errors.attendance.message}
+                  </motion.p>
+                )}
+
+                {/* Guest Count - Only show when "Có thể tham dự" is selected */}
+                {watchedAttendance === "Có thể tham dự" && (
+                  <motion.select
+                    {...register("guestCount", {
+                      required:
+                        watchedAttendance === "Có thể tham dự"
+                          ? "Vui lòng chọn số người"
+                          : false,
+                    })}
+                    className={`rsvp-select ${
+                      errors.guestCount ? "error" : ""
+                    }`}
+                    variants={itemVariants}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ width: "100%" }}
+                  >
+                    <option value="">Bạn đi bao nhiêu người?</option>
+                    <option value="1 người">1 người</option>
+                    <option value="2 người">2 người</option>
+                    <option value="3 người">3 người</option>
+                    <option value="4 người">4 người</option>
+                    <option value="5 người">5 người</option>
+                    <option value="6+ người">6+ người</option>
+                  </motion.select>
+                )}
+
+                {watchedAttendance === "Có thể tham dự" &&
+                  errors.guestCount && (
+                    <motion.p className="rsvp-error" variants={itemVariants}>
+                      {errors.guestCount.message}
+                    </motion.p>
+                  )}
+
+                {/* Invited By - Only show when NOT "Không thể tham dự" */}
+                {watchedAttendance !== "Không thể tham dự" &&
+                  watchedAttendance && (
+                    <motion.div
+                      className={`rsvp-invited-by ${
+                        errors.invitedBy ? "error" : ""
+                      }`}
+                      variants={itemVariants}
+                      style={{ width: "100%" }}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <label>Bạn là khách mời của ai?</label>
+                      <div
+                        className="rsvp-radio-group"
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "1rem",
+                          width: "100%",
+                          justifyContent: "flex-start",
+                        }}
+                      >
+                        <label className="rsvp-radio row">
+                          <input
+                            type="radio"
+                            value="Chú Rể"
+                            {...register("invitedBy", {
+                              required: "Vui lòng chọn bạn là khách của ai",
+                            })}
+                          />
+                          <span>Chú Rể</span>
+                        </label>
+                        <label className="rsvp-radio">
+                          <input
+                            type="radio"
+                            value="Cô Dâu"
+                            {...register("invitedBy", {
+                              required: "Vui lòng chọn bạn là khách của ai",
+                            })}
+                          />
+                          <span>Cô Dâu</span>
+                        </label>
+                      </div>
+                      {errors.invitedBy && (
+                        <p
+                          className="rsvp-error"
+                          style={{
+                            color: "red",
+                            fontSize: "0.875rem",
+                            marginTop: "0.5rem",
+                            display: "block",
+                          }}
+                        >
+                          {errors.invitedBy.message ||
+                            "Vui lòng chọn bạn là khách của ai"}
+                        </p>
+                      )}
+                    </motion.div>
+                  )}
+
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="rsvp-button"
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ width: "100%" }}
+                >
+                  {isSubmitting ? "Đang gửi..." : "GỬI LỜI NHẬN VÀ XÁC NHẬN"}
+                </motion.button>
+              </>
+            )}
+          </form>
         )}
 
-        {/* Show rest of form if name is provided (either from input or query param) */}
-        {(formData.name.trim() || initialName) && (
+        {/* Success Message and Gift Button - Show when successfully submitted */}
+        {submitStatus === "success" && (
           <>
-            {initialName && !formData.name.trim() && (
-              <motion.div className="rsvp-name-display" variants={itemVariants}>
-                <p className="rsvp-name-label">Xác nhận thông tin:</p>
-                <p className="rsvp-name-value">{initialName}</p>
-              </motion.div>
-            )}
-            <motion.textarea
-              name="message"
-              placeholder="Gửi lời nhận đến cô dâu và chú rể"
-              value={formData.message}
-              onChange={handleInputChange}
-              className="rsvp-textarea"
-              rows={4}
+            <motion.div
+              className="rsvp-message success"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
               variants={itemVariants}
-            />
-
-            <motion.select
-              name="attendance"
-              value={formData.attendance}
-              onChange={handleInputChange}
-              className="rsvp-select"
-              variants={itemVariants}
+              style={{
+                textAlign: "center",
+                padding: "2rem",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
             >
-              <option value="">Ban sẽ đến chữ?</option>
-              <option value="Có thể tham dự">Có thể tham dự</option>
-              <option value="Không thể tham dự">Không thể tham dự</option>
-              <option value="Chưa chắc chắn">Chưa chắc chắn</option>
-            </motion.select>
-
-            <motion.select
-              name="guestCount"
-              value={formData.guestCount}
-              onChange={handleInputChange}
-              className="rsvp-select"
-              variants={itemVariants}
-            >
-              <option value="">Ban đi bao nhiêu người?</option>
-              <option value="1 người">1 người</option>
-              <option value="2 người">2 người</option>
-              <option value="3 người">3 người</option>
-              <option value="4 người">4 người</option>
-              <option value="5 người">5 người</option>
-              <option value="6+ người">6+ người</option>
-            </motion.select>
-
-            <motion.div className="rsvp-invited-by" variants={itemVariants}>
-              <label>Bạn là khách mới của ai?</label>
-              <div className="rsvp-radio-group">
-                <label className="rsvp-radio row">
-                  <input
-                    type="radio"
-                    name="invitedBy"
-                    value="Chú Rể"
-                    checked={formData.invitedBy === "Chú Rể"}
-                    onChange={handleInputChange}
-                  />
-                  <span>Chú Rể</span>
-                </label>
-                <label className="rsvp-radio">
-                  <input
-                    type="radio"
-                    name="invitedBy"
-                    value="Cô Dâu"
-                    checked={formData.invitedBy === "Cô Dâu"}
-                    onChange={handleInputChange}
-                  />
-                  <span>Cô Dâu</span>
-                </label>
-              </div>
+              ✓ {submitMessage}
             </motion.div>
+
+            {/* Gift Button - Show after successful submission */}
+            <motion.button
+              type="button"
+              onClick={() => setShowGiftModal(true)}
+              className="rsvp-button-gift"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              style={{ width: "100%" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              GỬI QUA MỪNG CƯỚI
+            </motion.button>
           </>
         )}
 
-        {/* Submit Button */}
-        {formData.name.trim() && (
-          <motion.button
-            onClick={sendToTelegram}
-            disabled={isSubmitting || !isFormValid()}
-            className="rsvp-button"
-            variants={itemVariants}
-            whileHover={isFormValid() ? { scale: 1.02 } : {}}
-            whileTap={isFormValid() ? { scale: 0.98 } : {}}
-          >
-            {isSubmitting ? "Đang gửi..." : "GỬI LỜI NHẬN VÀ XÁC NHẬN"}
-          </motion.button>
-        )}
-
-        {/* Gift Button - Always visible below submit button */}
-        {formData.name.trim() && (
-          <motion.button
-            onClick={() => setShowGiftModal(true)}
-            className="rsvp-button-gift"
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            GỬI QUA CƯỚI
-          </motion.button>
-        )}
-
-        {/* Status Message */}
-        {submitStatus === "success" && (
-          <motion.div
-            className="rsvp-message success"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            ✓ {submitMessage}
-          </motion.div>
-        )}
-
+        {/* Error Message - Show when there's an error */}
         {submitStatus === "error" && (
           <motion.div
             className="rsvp-message error"

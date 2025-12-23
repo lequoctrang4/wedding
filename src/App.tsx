@@ -6,6 +6,7 @@ import HeroImage from "./components/HeroImage";
 import Greeting from "./components/Greeting";
 import Parents from "./components/Parents";
 import Countdown from "./components/Countdown";
+import WeddingCalendar from "./components/Calendar";
 import Gallery from "./components/Gallery";
 import CoupleIntro from "./components/CoupleIntro";
 import EventDetails from "./components/EventDetails";
@@ -34,14 +35,15 @@ const App: React.FC = () => {
 
   // Image & Audio URLs to preload
   const imagesToPreload = [
-    `${host}wedding-image/SDN09286.png`,
-    `${host}wedding-image/SDN0003.png`,
-    `${host}wedding-image/SDN08433.png`,
-    `${host}wedding-image/SDN08466.png`,
-    `${host}wedding-image/SDN09299.png`,
-    `${host}wedding-image/SDN08882.png`,
-    `${host}wedding-image/SDN09072.png`,
-    `${host}music.mp3`, // Add music file to preload
+    `${host}${config.images.hero}`,
+    `${host}${config.images.couple}`,
+    `${host}${config.images.gallery1[0]}`,
+    `${host}${config.images.gallery1[1]}`,
+    `${host}${config.images.gallery2[0]}`,
+    `${host}${config.images.gallery2[1]}`,
+    `${host}${config.images.gallery2[2]}`,
+    `${host}${config.images.darkImage}`,
+    `${host}${config.music.src}`, // Add music file to preload
   ];
 
   // Preload images on mount
@@ -65,7 +67,10 @@ const App: React.FC = () => {
 
   const openInvitation = () => {
     setIsOpen(true);
-    window.scrollTo(0, 0);
+    // Smooth scroll to top after a small delay to preserve initial animations
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   };
 
   const closeInvitation = () => {
@@ -103,12 +108,11 @@ const App: React.FC = () => {
       }
     }
   };
+  if (isLoading)
+    return <Loading isLoading={isLoading} progress={loadProgress} />;
 
   return (
     <div>
-      {/* Loading Screen */}
-      <Loading isLoading={isLoading} progress={loadProgress} />
-
       {/* Envelope View */}
       <div
         className={`envelope-view ${isOpen ? "hidden" : ""}`}
@@ -155,7 +159,7 @@ const App: React.FC = () => {
             viewport={{ once: true }}
           >
             <HeroImage
-              src={`${host}wedding-image/SDN09286.png`}
+              src={`${host}${config.images.hero}`}
               alt="Wedding Hero"
             />
           </motion.div>
@@ -168,16 +172,6 @@ const App: React.FC = () => {
             viewport={{ once: true }}
           >
             <Greeting />
-          </motion.div>
-
-          <motion.div
-            className="section countdown-section"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Countdown />
           </motion.div>
 
           <motion.div
@@ -200,7 +194,7 @@ const App: React.FC = () => {
             <CoupleIntro
               groomName={config.couple.groomName}
               brideName={config.couple.brideName}
-              photo={`${host}wedding-image/SDN0003.png`}
+              photo={`${host}${config.images.couple}`}
             />
           </motion.div>
 
@@ -230,10 +224,42 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: `${host}wedding-image/SDN08433.png`, alt: "Gallery 1" },
-                { src: `${host}wedding-image/SDN08466.png`, alt: "Gallery 2" },
+                {
+                  src: `${host}${config.images.gallery1[0]}`,
+                  alt: "Gallery 1",
+                },
+                {
+                  src: `${host}${config.images.gallery1[1]}`,
+                  alt: "Gallery 2",
+                },
               ]}
               cols={2}
+            />
+          </motion.div>
+
+          <motion.div
+            className="section countdown-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Countdown />
+          </motion.div>
+
+          {/* Calendar Section */}
+          <motion.div
+            className="section calendar-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <WeddingCalendar
+              year={config.calendar.year}
+              month={config.calendar.month}
+              highlightDate={config.calendar.highlightDate}
+              title={config.calendar.title}
             />
           </motion.div>
 
@@ -263,9 +289,18 @@ const App: React.FC = () => {
           >
             <Gallery
               images={[
-                { src: `${host}wedding-image/SDN09299.png`, alt: "Gallery 3" },
-                { src: `${host}wedding-image/SDN08882.png`, alt: "Gallery 4" },
-                { src: `${host}wedding-image/SDN09072.png`, alt: "Gallery 5" },
+                {
+                  src: `${host}${config.images.gallery2[0]}`,
+                  alt: "Gallery 3",
+                },
+                {
+                  src: `${host}${config.images.gallery2[1]}`,
+                  alt: "Gallery 4",
+                },
+                {
+                  src: `${host}${config.images.gallery2[2]}`,
+                  alt: "Gallery 5",
+                },
               ]}
               cols={3}
             />
@@ -279,7 +314,7 @@ const App: React.FC = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <motion.img
-              src={`${host}wedding-image/SDN08372.png`}
+              src={`${host}${config.images.darkImage}`}
               alt="Couple"
               className="dark-image-full"
               initial={{ scale: 0.95, opacity: 0 }}
@@ -316,7 +351,6 @@ const App: React.FC = () => {
               bankName={config.gift?.bankName || ""}
               accountName={config.gift?.accountName || ""}
               accountNumber={config.gift?.accountNumber || ""}
-              bankAddress={config.gift?.bankAddress}
               initialName={nameFromQuery}
             />
           </motion.div>

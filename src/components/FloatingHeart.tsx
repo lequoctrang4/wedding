@@ -15,6 +15,7 @@ const FloatingHeart: React.FC = () => {
       animationDelay: `${randomDelay}s`,
       fontSize: `${16 + Math.random() * 16}px`, // 16-32px random size
       opacity: 0.6 + Math.random() * 0.4, // 0.6-1.0 opacity
+      zIndex: 9999
     });
   }, []);
 

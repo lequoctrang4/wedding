@@ -50,8 +50,7 @@ const GiftModal: React.FC<GiftModalProps> = ({
 
             <div className="gift-modal-content">
               <p className="gift-modal-text">
-                Cảm ơn tất cả các tình cảm mà các em, các bạn, các anh các chị
-                đã dành cho hai vợ chồng
+                Tụi mình xin cảm ơn tất cả tình cảm mà mọi người đã dành cho vợ chồng ạ ❤️❤️❤️
               </p>
 
               <div className="gift-section">

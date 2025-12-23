@@ -3,7 +3,7 @@
     "groomName": "Tân Thanh",
     "brideName": "Thảo Nguyên",
     "groomFather": "Ông Nguyễn Văn Lâm",
-    "groomMother": "Bà Lê Thị Diễm Hằng",
+    "groomMother": "Bà Lê Thị Diễm Thúy",
     "brideFather": "Ông Cao Minh Quyến",
     "brideMother": "Bà Nguyễn Thị Bích Liên"
   },
@@ -11,6 +11,23 @@
     "eventDate": "29.01.2026",
     "eventDateFormatted": "29 Tháng 01, 2026",
     "dayOfWeek": "Thứ Năm"
+  },
+  "calendar": {
+    "year": 2026,
+    "month": 1,
+    "highlightDate": 29,
+    "title": "SAVE THE DATE"
+  },
+  "images": {
+    "hero": "wedding-image/SDN09286.png",
+    "couple": "wedding-image/SDN0003.png",
+    "gallery1": ["wedding-image/SDN08433.png", "wedding-image/SDN08466.png"],
+    "gallery2": [
+      "wedding-image/SDN09299.png",
+      "wedding-image/SDN08882.png",
+      "wedding-image/SDN09072.png"
+    ],
+    "darkImage": "wedding-image/SDN08372.png"
   },
   "greeting": {
     "text": "Trong cuộc đời này, được gặp nhau là duyên,<br />được bên nhau là phận,<br />được yêu thương là hạnh phúc",
@@ -38,20 +55,19 @@
     }
   ],
   "footer": {
-    "thanks": "Sự hiện diện của bạn là niềm vinh hạnh lớn lao đối với chúng tôi",
+    "thanks": "",
     "openHint": "Nhấn để mở thiệp"
   },
   "music": {
     "src": "music.mp3"
   },
-  "telegram": {
-    "botToken": "%VITE_TELEGRAM_BOT_TOKEN%",
-    "chatId": "%VITE_TELEGRAM_CHAT_ID%"
+  "confirm": {
+    "title": "Sự hiện diện của bạn là niềm vui lớn đối với gia đình. Rất hân hạnh được đón tiếp. Xin vui lòng xác nhận tham dự để tụi mình chuẩn bị chu đáo nhất nhé!"
   },
   "gift": {
-    "qrCode": "QR.png",
+    "qrCode": "wedding-image/QR.png",
     "bankName": "Nam A Bank",
-    "accountName": "CAO THI THAO NGUYEN",
+    "accountName": "CAO NGUYEN THAO NGUYEN",
     "accountNumber": "009996999"
   }
 }
