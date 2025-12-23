@@ -429,40 +429,36 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
 
         {/* Success Message and Gift Button - Show when successfully submitted */}
         {submitStatus === "success" && (
-          <>
-            <motion.div
-              className="rsvp-message success"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              variants={itemVariants}
-              style={{
-                textAlign: "center",
-                padding: "2rem",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-            >
-              ✓ {submitMessage}
-            </motion.div>
-
-            {/* Gift Button - Show after successful submission */}
-            <motion.button
-              type="button"
-              onClick={() => setShowGiftModal(true)}
-              className="rsvp-button-gift"
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{ width: "100%" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              GỬI QUA MỪNG CƯỚI
-            </motion.button>
-          </>
+          <motion.div
+            className="rsvp-message success"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            variants={itemVariants}
+            style={{
+              textAlign: "center",
+              padding: "2rem",
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+            }}
+          >
+            ✓ {submitMessage}
+          </motion.div>
         )}
-
+        {/* Gift Button - Show after successful submission */}
+        <motion.button
+          type="button"
+          onClick={() => setShowGiftModal(true)}
+          className="rsvp-button-gift"
+          variants={itemVariants}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          style={{ width: "100%" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          GỬI QUA MỪNG CƯỚI
+        </motion.button>
         {/* Error Message - Show when there's an error */}
         {submitStatus === "error" && (
           <motion.div
