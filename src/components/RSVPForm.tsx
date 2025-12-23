@@ -457,7 +457,7 @@ ${data.invitedBy ? `🤝 Người mời: ${data.invitedBy}` : ""}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          GỬI QUA MỪNG CƯỚI
+          GỬI QUÀ MỪNG CƯỚI
         </motion.button>
         {/* Error Message - Show when there's an error */}
         {submitStatus === "error" && (

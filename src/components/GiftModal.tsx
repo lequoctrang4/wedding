@@ -50,14 +50,15 @@ const GiftModal: React.FC<GiftModalProps> = ({
 
             <div className="gift-modal-content">
               <p className="gift-modal-text">
-                Tụi mình xin cảm ơn tất cả tình cảm mà mọi người đã dành cho vợ chồng ạ ❤️❤️❤️
+                Tụi mình xin cảm ơn tất cả tình cảm mà mọi người đã dành cho vợ
+                chồng ạ ❤️❤️❤️
               </p>
 
               <div className="gift-section">
-                <h3 className="gift-section-title">LỊ XỊ MỪNG CƯỚI</h3>
+                <h3 className="gift-section-title">LÌ XÌ MỪNG CƯỚI</h3>
 
                 <div className="gift-qr-container">
-                  <div className="gift-bank-logo">VIETQRa™</div>
+                  <div className="gift-bank-logo">VIETQR</div>
                   <img src={qrCode} alt="QR Code" className="gift-qr-code" />
                 </div>
 

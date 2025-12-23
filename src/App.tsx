@@ -39,9 +39,7 @@ const App: React.FC = () => {
     `${host}${config.images.couple}`,
     `${host}${config.images.gallery1[0]}`,
     `${host}${config.images.gallery1[1]}`,
-    `${host}${config.images.gallery2[0]}`,
-    `${host}${config.images.gallery2[1]}`,
-    `${host}${config.images.gallery2[2]}`,
+    ...config.images.gallery2.map((img) => `${host}${img}`),
     `${host}${config.images.darkImage}`,
     `${host}${config.music.src}`, // Add music file to preload
   ];
@@ -288,21 +286,13 @@ const App: React.FC = () => {
             viewport={{ once: true }}
           >
             <Gallery
-              images={[
-                {
-                  src: `${host}${config.images.gallery2[0]}`,
-                  alt: "Gallery 3",
-                },
-                {
-                  src: `${host}${config.images.gallery2[1]}`,
-                  alt: "Gallery 4",
-                },
-                {
-                  src: `${host}${config.images.gallery2[2]}`,
-                  alt: "Gallery 5",
-                },
-              ]}
-              cols={3}
+              images={config.images.gallery2.map((imagePath, index) => ({
+                src: `${host}${imagePath}`,
+                alt: `Gallery ${index + 3}`,
+              }))}
+              carousel={true}
+              marquee={true}
+              marqueeSpeed={60}
             />
           </motion.div>
 

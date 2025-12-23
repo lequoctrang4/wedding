@@ -20,12 +20,18 @@
   },
   "images": {
     "hero": "wedding-image/SDN09286.png",
-    "couple": "wedding-image/SDN0003.png",
-    "gallery1": ["wedding-image/SDN08433.png", "wedding-image/SDN08466.png"],
+    "couple": "wedding-image/SDN08578.png",
+    "gallery1": ["wedding-image/SDN08433.png", "wedding-image/SDN08278.png"],
     "gallery2": [
-      "wedding-image/SDN09299.png",
       "wedding-image/SDN08882.png",
-      "wedding-image/SDN09072.png"
+      "wedding-image/SDN09136.png",
+      "wedding-image/SDN08581.png",
+      "wedding-image/SDN0882.png",
+      "wedding-image/SDN08141.png",
+      "wedding-image/SDN08320.png",
+      "wedding-image/SDN08766.png",
+      "wedding-image/SDN09024.png",
+      "wedding-image/SDN08555.png"
     ],
     "darkImage": "wedding-image/SDN08372.png"
   },
@@ -65,7 +71,7 @@
     "title": "Sự hiện diện của bạn là niềm vui lớn đối với gia đình. Rất hân hạnh được đón tiếp. Xin vui lòng xác nhận tham dự để tụi mình chuẩn bị chu đáo nhất nhé!"
   },
   "gift": {
-    "qrCode": "wedding-image/QR.png",
+    "qrCode": "QR.png",
     "bankName": "Nam A Bank",
     "accountName": "CAO NGUYEN THAO NGUYEN",
     "accountNumber": "009996999"
