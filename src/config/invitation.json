@@ -42,22 +42,22 @@
   },
   "events": [
     {
-      "id": "vuquy",
-      "title": "Lễ Vu Quy",
+      "id": "tanhon",
+      "title": "Lễ Thành Hôn",
       "label": "Save The Date",
-      "time": "08:00",
+      "time": "13:00",
       "dayOfWeek": "Thứ Năm",
-      "venue": "Tư Gia Nhà Gái",
-      "address": "425 Đường Trần Hưng Đạo, Phường Bồng Sơn, Gia Lai"
+      "venue": "Tư Gia Nhà Trai",
+      "address": "1555 Đường Quang Trung, Phường Hoài Nhơn, Gia Lai"
     },
     {
       "id": "wedding",
       "title": "Tiệc Cưới",
       "label": "Wedding Party",
-      "time": "09:30",
+      "time": "14:30",
       "dayOfWeek": "Thứ Năm",
-      "venue": "Trung Tâm Tiệc Cưới Bảy Cường",
-      "address": "Sảnh 1, Đường Nguyễn Văn Linh, Phường Bồng Sơn, Gia Lai"
+      "venue": "Tư gia Nhà Trai",
+      "address": "1555 Đường Quang Trung, Phường Hoài Nhơn, Gia Lai"
     }
   ],
   "footer": {
