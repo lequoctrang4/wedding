@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
-    "deploy": "wrangler pages deploy dist"
+    "deploy:main": "npm run build && wrangler pages deploy dist --project-name nguyen-thanh-wedding",
+    "deploy:thanh": "npm run build && wrangler pages deploy dist --project-name thanh-nguyen-wedding"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
