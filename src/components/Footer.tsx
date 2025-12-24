@@ -26,9 +26,9 @@ const Footer: React.FC = () => {
       viewport={{ once: true, amount: 0.3 }}
     >
       <motion.div className="footer-names" variants={itemVariants}>
-        <div>{config.couple.brideName}</div>
-        {"  &  "}
         <div>{config.couple.groomName}</div>
+        {"  &  "}
+        <div>{config.couple.brideName}</div>
       </motion.div>
 
       <motion.div className="footer-date" variants={itemVariants}>

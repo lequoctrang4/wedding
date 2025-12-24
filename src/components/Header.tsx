@@ -41,9 +41,9 @@ const Header: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       </motion.div>
 
       <motion.div className="main-names" variants={itemVariants}>
-        <span>{config.couple.brideName}</span>
-        <span className="amp">&</span>
         <span>{config.couple.groomName}</span>
+        <span className="amp">&</span>
+        <span>{config.couple.brideName}</span>
       </motion.div>
 
       <motion.div className="main-date" variants={itemVariants}>

@@ -35,16 +35,16 @@ const CoupleIntro: React.FC<CoupleIntroProps> = ({
         className="couple-intro"
         variants={animationVariants.slideInTop}
       >
-        Cô Dâu & Chú Rể
+        Chú Rể & Cô Dâu
       </motion.div>
 
       <motion.div
         className="couple-main-names"
         variants={animationVariants.bounceUp}
       >
-        <div>{brideName}</div>
-        <div>&</div>
         <div>{groomName}</div>
+        <div>&</div>
+        <div>{brideName}</div>
       </motion.div>
 
       {photo && (
