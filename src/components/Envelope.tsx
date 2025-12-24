@@ -41,7 +41,7 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                ❤️. Kính mời: {guestName || "Bạn"} ❤️
+                Kính mời: {guestName || "Bạn"} ❤️
               </motion.div>
               <motion.div
                 className="couple-names"
