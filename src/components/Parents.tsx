@@ -25,25 +25,6 @@ const Parents: React.FC = () => {
     >
       <motion.div
         className="parent-side"
-        variants={animationVariants.slideInLeft}
-      >
-        <motion.div
-          className="parent-label"
-          variants={animationVariants.slideInTop}
-        >
-          Nhà Trai
-        </motion.div>
-        <motion.div
-          className="parent-names"
-          variants={animationVariants.slideInLeft}
-        >
-          <strong>{config.couple.groomFather}</strong>
-          <strong>{config.couple.groomMother}</strong>
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="parent-side"
         variants={animationVariants.slideInRight}
       >
         <motion.div
@@ -58,6 +39,24 @@ const Parents: React.FC = () => {
         >
           <strong>{config.couple.brideFather}</strong>
           <strong>{config.couple.brideMother}</strong>
+        </motion.div>
+      </motion.div>
+      <motion.div
+        className="parent-side"
+        variants={animationVariants.slideInLeft}
+      >
+        <motion.div
+          className="parent-label"
+          variants={animationVariants.slideInTop}
+        >
+          Nhà Trai
+        </motion.div>
+        <motion.div
+          className="parent-names"
+          variants={animationVariants.slideInLeft}
+        >
+          <strong>{config.couple.groomFather}</strong>
+          <strong>{config.couple.groomMother}</strong>
         </motion.div>
       </motion.div>
     </motion.div>

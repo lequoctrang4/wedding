@@ -49,9 +49,9 @@ const Envelope: React.FC<{ onOpen: () => void }> = ({ onOpen }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                <span>{config.couple.groomName}</span>
-                <span className="ampersand">&</span>
                 <span>{config.couple.brideName}</span>
+                <span className="ampersand">&</span>
+                <span>{config.couple.groomName}</span>
               </motion.div>
               <motion.div
                 className="wedding-date"
